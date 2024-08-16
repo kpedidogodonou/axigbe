@@ -2,6 +2,9 @@ dependencies:
   build:
     - elixir
     - npm
+    - gcc
+    - make 
+    - erlang-dev
   runtime:
     - bash
     - curl
