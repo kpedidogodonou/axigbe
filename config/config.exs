@@ -88,6 +88,14 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# config :nx, default_backend: EXLA.Backend
+
+config :axigbe,
+  ash_domains: [Axigbe.Accounts]
+
+config :axigbe,
+  token_signing_secret: "ttTqfjLzpiygUl831Hg3gSQlIPE/d60tTPxStPC17ebYVeSA8Vkx/4JrosWKPXZp"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

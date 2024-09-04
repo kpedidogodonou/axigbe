@@ -9,7 +9,9 @@ module.exports = {
   content: [
     "./js/**/*.js",
     "../lib/axigbe_web.ex",
-    "../lib/axigbe_web/**/*.*ex"
+    "../lib/axigbe_web/**/*.*ex",
+    "../deps/ash_authentication_phoenix/**/*.*ex", // <-- Add this line
+
   ],
   theme: {
     extend: {
