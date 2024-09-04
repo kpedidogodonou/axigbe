@@ -31,13 +31,6 @@ jobs:
           ABUILD_PRIVATE_KEY: ${{secrets.ABUILD_PRIVATE_KEY}}
           ABUILD_PUBLIC_KEY: ${{secrets.ABUILD_PUBLIC_KEY}}
 
-      - name: "Patch PicoSAT Deps"
-        run: |
-          apk add musl-dev
-          echo "#include <unistd.h>" > /usr/include/sys/unistd.h
-
-        shell: alpine.sh --root {0}
-
       - name: 'Build Package'
         run: |
           cd "$GITHUB_WORKSPACE"/.apk/"$GITHUB_REPOSITORY" || exit
