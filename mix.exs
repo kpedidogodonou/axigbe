@@ -64,6 +64,7 @@ defmodule Axigbe.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
+      {:x509, "~> 0.8.4"},
 
       {:ash, "~> 3.0"},
       {:ash_postgres, "~> 2.0"},
