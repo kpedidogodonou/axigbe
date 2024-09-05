@@ -30,11 +30,11 @@ if config_env() == :prod do
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
-  config :axigbe, Axigbe.Repo,
-    # ssl: true,
-    url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
+  # config :axigbe, Axigbe.Repo,
+  #   # ssl: true,
+  #   url: database_url,
+  #   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  #   socket_options: maybe_ipv6
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -64,6 +64,42 @@ if config_env() == :prod do
       port: port
     ],
     secret_key_base: secret_key_base
+
+    if cacert_pem = System.get_env("DATABASE_CERT_PEM") do
+      %URI{host: db_host} = URI.parse(database_url)
+
+      cacert_options =
+        if cacert_pem do
+          [
+            cacerts:
+              cacert_pem
+              |> X509.from_pem()
+              |> Enum.map(&X509.Certificate.to_der/1)
+          ]
+        else
+          [
+            cacertfile:
+              System.get_env("DATABASE_CERT_PATH") || "/etc/ssl/cert.pem"
+          ]
+        end
+
+      config :axigbe, Axigbe.Repo,
+        ssl: true,
+        url: database_url,
+        ssl_opts:
+          [
+            verify: :verify_peer,
+            server_name_indication: to_charlist(db_host),
+            customize_hostname_check: [
+              match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
+            ]
+          ]
+          |> Keyword.merge(cacert_options)
+    else
+      config :axigbe, Axigbe.Repo,
+        url: database_url,
+        socket_options: maybe_ipv6
+    end
 
   # ## SSL Support
   #
@@ -118,44 +154,4 @@ if config_env() == :prod do
 
   # Database Certificate from  https://opsmaru.com/docs/application/phoenix/database-certificate/
 
-  if config_env() == :prod do
-
-
-    if cacert_pem = System.get_env("DATABASE_CERT_PEM") do
-      %URI{host: db_host} = URI.parse(database_url)
-
-      cacert_options =
-        if cacert_pem do
-          [
-            cacerts:
-              cacert_pem
-              |> X509.from_pem()
-              |> Enum.map(&X509.Certificate.to_der/1)
-          ]
-        else
-          [
-            cacertfile:
-              System.get_env("DATABASE_CERT_PATH") || "/etc/ssl/cert.pem"
-          ]
-        end
-
-      config :axigbe, Axigbe.Repo,
-        ssl: true,
-        url: database_url,
-        ssl_opts:
-          [
-            verify: :verify_peer,
-            server_name_indication: to_charlist(db_host),
-            customize_hostname_check: [
-              match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
-            ]
-          ]
-          |> Keyword.merge(cacert_options)
-    else
-      config :axigbe, Axigbe.Repo,
-        url: database_url,
-        socket_options: maybe_ipv6
-    end
-
-  end
 end

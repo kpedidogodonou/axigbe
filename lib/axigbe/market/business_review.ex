@@ -1,10 +1,10 @@
-# defmodule Axigbe.Market.Business do
+# defmodule Axigbe.Market.BusinessReview do
 #   use Ash.Resource,
-#     domain: Axigbe.Market,
-#     data_layer: AshPostgres.DataLayer
+#   domain: Axigbe.Market,
+#   data_layer: AshPostgres.DataLayer
 
 #   postgres do
-#     table "businesses"
+#     table "business_reviews"
 #     repo Axigbe.Repo
 #   end
 
@@ -30,16 +30,22 @@
 
 #   attributes do
 #     uuid_primary_key :id
-#     attribute :username, :string, allow_nil?: false
-#     attribute :name, :string, allow_nil?: false
 #     attribute :description, :string, allow_nil?: false
+#     attribute :rating, :integer do
+#       allow_nil? false
+#       constaints [
+#         min: 0,
+#         max: 5
+#       ]
+
+#     end
 
 #     create_timestamp
 #     update_timestamp
 #   end
 
 #   relationships do
-#     belongs_to :owner, Axigbe.Accounts.User
-#     has_many :reviews, Axigbe.Market.BusinessReview
+#     belongs_to :business, Axigbe.Market.Business
 #   end
+
 # end
