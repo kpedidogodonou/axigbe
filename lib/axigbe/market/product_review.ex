@@ -1,10 +1,10 @@
-defmodule Axigbe.Market.BusinessReview do
+defmodule Axigbe.Market.ProductReview do
   use Ash.Resource,
   domain: Axigbe.Market,
   data_layer: AshPostgres.DataLayer
 
   postgres do
-    table "business_reviews"
+    table "product_reviews"
     repo Axigbe.Repo
   end
 
@@ -12,13 +12,12 @@ defmodule Axigbe.Market.BusinessReview do
     defaults [:read, :destroy]
 
     create :create do
-
-      accept [:comment, :rating, :business_id]
+      accept [:comment, :rating, :product_id]
     end
 
     update :update do
 
-      accept [:comment, :rating, :business_id]
+      accept [:comment, :rating, :product_id]
     end
 
     read :by_id do
@@ -45,7 +44,7 @@ defmodule Axigbe.Market.BusinessReview do
   end
 
   relationships do
-    belongs_to :business, Axigbe.Market.Business do
+    belongs_to :product, Axigbe.Market.Product do
       attribute_writable? true
       allow_nil? false
     end
