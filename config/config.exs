@@ -91,7 +91,7 @@ config :phoenix, :json_library, Jason
 # config :nx, default_backend: EXLA.Backend
 
 config :axigbe,
-  ash_domains: [Axigbe.Accounts]
+  ash_domains: [Axigbe.Accounts, Axigbe.Market]
 
 config :axigbe,
   token_signing_secret: "ttTqfjLzpiygUl831Hg3gSQlIPE/d60tTPxStPC17ebYVeSA8Vkx/4JrosWKPXZp"

@@ -7,3 +7,30 @@ defmodule Axigbe do
   if it comes from the database, an external API or others.
   """
 end
+
+
+
+# <thead>
+# <tr>
+#   <th>
+#     <.live_component
+#       module={AxigbeWeb.AxigbeLive.SortingComponent}
+#       id={"sorting-id"}
+#       key={:id}
+#       sorting={@sorting}
+#       >
+
+#     </.live_component>
+#   </th>
+#   <th>
+#     <.live_component
+#       module={AxigbeWeb.AxigbeLive.SortingComponent}
+#       id={"sorting-name"}
+#       key={:name}
+#       sorting={@sorting}
+#       >
+
+#     </.live_component>
+#   </th>
+# </tr>
+# </thead>

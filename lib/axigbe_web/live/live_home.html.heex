@@ -6,14 +6,33 @@
           Bienvenu... Sur Axigbe
         </h1>
       </div>
+      <.live_component 
+      module={AxigbeWeb.AxigbeLive.FilterComponent}
+       id="filter"
+      filter={@filter} />
     </header>
+
     <main>
-      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="px-4 py-8 sm:px-0">
-          <div
-            class="border-4 border-gray-200 border-dashed rounded-lg h-96"
-          ></div>
-        </div>
+      <div id="table-container">
+
+        <table>
+
+          <tbody>
+            <%= if assigns[:error_message] do %>
+              <tr>
+                <td colspan="6"><%= @error_message %></td>
+              </tr>
+            <% else %>
+              <%= for product <- @products do %>
+                <tr data-test-id={product.id}>
+                  <td><%= product.price %></td>
+                  <td><%= product.name %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      
       </div>
     </main>
   </div>

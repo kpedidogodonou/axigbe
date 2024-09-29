@@ -2,7 +2,7 @@ defmodule Axigbe.Accounts.User do
   use Ash.Resource,
     domain: Axigbe.Accounts,
     data_layer: AshPostgres.DataLayer,
-    authorizers: [Ash.Policy.Authorizer],
+    # authorizers: [Ash.Policy.Authorizer],
     extensions: [AshAuthentication]
 
 
@@ -15,6 +15,17 @@ defmodule Axigbe.Accounts.User do
     end
 
     attribute :hashed_password, :string, allow_nil?: false, sensitive?: true
+  end
+
+  actions do
+    defaults [:read, :destroy, create: :*, update: :*]
+
+
+    read :by_email do
+      argument :email, :string, allow_nil?: false
+      get? true
+      filter expr(email == ^arg(:email))
+    end
   end
 
   authentication do
@@ -51,15 +62,15 @@ defmodule Axigbe.Accounts.User do
   #   end
   # end
 
-  policies do
-    bypass AshAuthentication.Checks.AshAuthenticationInteraction do
-      authorize_if always()
-    end
+  # policies do
+  #   bypass AshAuthentication.Checks.AshAuthenticationInteraction do
+  #     authorize_if always()
+  #   end
 
-    policy always() do
-      forbid_if always()
-    end
-  end
+  #   policy always() do
+  #     forbid_if always()
+  #   end
+  # end
 
 
 
