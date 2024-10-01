@@ -16,6 +16,8 @@ defmodule Axigbe.Application do
       {Finch, name: Axigbe.Finch},
 
       {AshAuthentication.Supervisor, otp_app: :axigbe},
+      Cldr.Currency,
+
 
       # {Nx.Serving, serving: serving(), name: MyServing },
 

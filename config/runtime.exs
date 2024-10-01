@@ -155,3 +155,13 @@ if config_env() == :prod do
   # Database Certificate from  https://opsmaru.com/docs/application/phoenix/database-certificate/
 
 end
+
+
+# Postgrex: Geo.PostGIS types
+# Postgrex.Types.define(Axigbe.PostgresTypes,
+#   [Geo.PostGIS.Extension | Ecto.Adapters.Postgres.extensions()],
+#   json: Jason)
+
+# # Ecto: Geo.PostGIS types
+# config :axigbe, Axigbe.Repo, types: Axigbe.PostgresTypes
+ 

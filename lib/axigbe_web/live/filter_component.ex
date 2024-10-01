@@ -14,17 +14,27 @@ defmodule AxigbeWeb.AxigbeLive.FilterComponent do
         phx-target={@myself}
       >
         <div>
-          <div class="w-15" >
+
+
+        <div class="w-15" >
             <.input
-                label="Mon budget"
-                type="number"
-                field={filterdata[:budget]}/>
+            label="Je recherche"
+            field={filterdata[:name]}/>
           </div>
 
           <div class="w-15" >
             <.input
-            label="Je recherche"
-            field={filterdata[:name]}/>
+                label="Avec un budget de"
+                type="number"
+                field={filterdata[:budget]}/>
+          </div>
+
+
+
+          <div class="w-15" >
+            <.input
+            label="Dans les environs de"
+            field={filterdata[:area]}/>
           </div>
 
 

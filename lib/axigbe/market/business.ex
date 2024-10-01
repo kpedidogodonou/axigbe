@@ -3,6 +3,7 @@ defmodule Axigbe.Market.Business do
     domain: Axigbe.Market,
     data_layer: AshPostgres.DataLayer
 
+
   postgres do
     table "businesses"
     repo Axigbe.Repo
@@ -13,7 +14,7 @@ defmodule Axigbe.Market.Business do
 
     read :read do
       primary? true
-      # prepare build(load: [:reviews, :products])
+      prepare build(load: [:addresses])
     end
 
     create :create do
@@ -67,6 +68,7 @@ defmodule Axigbe.Market.Business do
     belongs_to :owner, Axigbe.Accounts.User, allow_nil?: false
     has_many :products, Axigbe.Market.Product
     has_many :reviews, Axigbe.Market.BusinessReview
+    has_many :addresses, Axigbe.Market.BusinessAddress
 
     many_to_many :sub_categories, Axigbe.Market.BusinessSubCategory do
       through Axigbe.Market.BusinessBusinessSubCategory
