@@ -20,6 +20,15 @@ defmodule Axigbe.Market do
       define :get_business_review, args: [:id], action: :by_id
     end
 
+
+    resource Axigbe.Market.BusinessAddress do
+      define :create_business_address, action: :create
+      define :list_business_addresses, action: :read
+      define :update_business_address, action: :update
+      define :delete_business_address, action: :destroy
+      define :get_business_address, args: [:id], action: :by_id
+    end
+
     resource Axigbe.Market.BusinessSubCategory do
       define :create_business_sub_category, action: :create
       define :list_business_sub_categories, action: :read
@@ -30,8 +39,6 @@ defmodule Axigbe.Market do
     end
 
     resource Axigbe.Market.BusinessBusinessSubCategory
-
-
 
     resource Axigbe.Market.BusinessCategory do
       define :create_business_category, action: :create
@@ -57,13 +64,10 @@ defmodule Axigbe.Market do
       define :update_product, action: :update
       define :delete_product, action: :destroy
       define :get_product, args: [:id], action: :by_id
-      define :search_products, args: [:keyword, :budget], action: :search
-      define :search_products_with_keyset, args: [:keyword, :budget], action: :keyset
+      # define :search_products, args: [:keyword, :budget], action: :search
+      define :search_products_with_keyset, args: [:name, :budget, :area], action: :keyset
 
     end
-
-
-
 
     resource Axigbe.Market.ProductReview do
       define :create_product_review, action: :create
@@ -73,10 +77,11 @@ defmodule Axigbe.Market do
       define :get_product_review, args: [:id], action: :by_id
     end
 
- 
+
+  end
 
 
-
-
+  def search_products(params) do
+    Axigbe.Market.search_products_with_keyset!(Map.get(params, :name),  Map.get(params, :budget), Map.get(params, :area), page: [limit: 2, count: true])
   end
 end

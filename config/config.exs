@@ -96,6 +96,50 @@ config :axigbe,
 config :axigbe,
   token_signing_secret: "ttTqfjLzpiygUl831Hg3gSQlIPE/d60tTPxStPC17ebYVeSA8Vkx/4JrosWKPXZp"
 
+
+# Geo.PostGIS: Use Jason coder
+# config :geo_postgis, json_library: Jason
+
+config :ash, :known_types, [AshMoney.Types.Money]
+# Ash: Type shorthands
+config :ash, :custom_types, [
+  # geometry: AshGeo.Geometry,
+  # geo_json: AshGeo.GeoJson,
+  # geo_wkt: AshGeo.GeoWkt,
+  # geo_wkb: AshGeo.GeoWkb,
+  # geo_any: AshGeo.GeoAny,
+  money: AshMoney.Types.Money
+  # You may add shorthands for any narrowed types here
+  #point26918: CoolApp.Type.GeometryPoint26918,
+]
+
+
+config :ex_money,
+  exchange_rates_retrieve_every: 300_000,
+  api_module: Money.ExchangeRates.OpenExchangeRates,
+  callback_module: Money.ExchangeRates.Callback,
+  exchange_rates_cache_module: Money.ExchangeRates.Cache.Ets,
+  preload_historic_rates: nil,
+  retriever_options: nil,
+  log_failure: :warning,
+  log_info: :info,
+  log_success: nil,
+  json_library: Jason,
+  default_cldr_backend: Axigbe.Cldr,
+  exclude_protocol_implementations: [],
+  open_exchange_rates_app_id: {:system, "OPEN_EXCHANGE_RATES_APP_ID"}
+
+
+
+
+config :ex_cldr,
+  json_library: Jason
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
+
+if config_env() in [:dev, :test] do
+  import_config ".env.exs"
+end
+
 import_config "#{config_env()}.exs"

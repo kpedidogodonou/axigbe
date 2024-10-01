@@ -36,7 +36,7 @@ defmodule Axigbe.MixProject do
 
 
 
-      {:igniter, "~> 0.3"},
+
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},
@@ -75,7 +75,15 @@ defmodule Axigbe.MixProject do
       {:picosat_elixir, "~> 0.2"},
 
       {:httpoison, "~> 2.0"},
-      {:poison, "~> 6.0"}
+      {:poison, "~> 6.0"},
+
+      {:ex_money, "~> 5.0"},
+      {:ash_geo, "~> 0.3.0"},
+      {:igniter, "~> 0.3"},
+      {:ash_money, "~> 0.1.13"},
+      {:ex_money_sql, "~> 1.0"}
+
+
     ]
   end
 

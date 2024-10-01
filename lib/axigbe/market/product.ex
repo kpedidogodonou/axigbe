@@ -18,11 +18,12 @@ actions do
   end
 
   read :keyset do
-    argument :keyword, :string, allow_nil?: false
-    argument :budget, :float, allow_nil?: true
+    argument :name, :string
+    argument :budget, :float
+    argument :area, :string
     prepare build(load: [:category, :business, :reviews], sort: :name)
 
-    filter expr(contains(name, ^arg(:keyword)) and price <= ^arg(:budget))
+    filter expr(contains(name, ^arg(:name)) and price <= ^arg(:budget) and contains(business.addresses.city, ^arg(:area)))
     pagination(keyset?: true)
 
   end
@@ -62,7 +63,7 @@ attributes do
   attribute :name, :string, allow_nil?: false
   attribute :description, :string, allow_nil?: false
   attribute :is_service?, :boolean, default: false, allow_nil?: false
-  attribute :price, :float, allow_nil?: false
+  attribute :price, AshMoney.Types.Money, allow_nil?: true
   attribute :price_on_demand?, :boolean, default: false, allow_nil?: false
   attribute :images, {:array, :string} do
     constraints min_length: 1

@@ -3,15 +3,18 @@ defmodule AxigbeWeb.Forms.FilterForm do
 
 
   @fields %{
-    budget: :integer,
-    name: :string
+    # budget: AshMoney.Types.Money,
+    name: :string,
+    area: :string,
   }
 
   @default_values %{
-    budget: nil,
-    name: nil
+    # budget: nil,
+    name: nil,
+    area: nil
   }
-#
+
+
   def default_values(overrides \\ %{}) do
     Map.merge(@default_values, overrides)
   end
@@ -19,12 +22,11 @@ defmodule AxigbeWeb.Forms.FilterForm do
   def parse(params) do
     {@default_values, @fields}
     |> cast(params, Map.keys(@fields))
-    |> validate_number(:budget, greater_than_or_equal_to: 0)
+    # |> validate_number(:budget, greater_than_or_equal_to: 0)
     |> apply_action(:insert)
   end
 
   def change_values(values \\ @default_values) do
-    IO.inspect("changing values")
     {values, @fields}
     |> cast(%{}, Map.keys(@fields))
   end

@@ -38,8 +38,6 @@ defmodule AxigbeWeb.LiveHome do
     end
   end
 
-
-
   defp merge_and_sanitize_params(socket, overrides \\ %{}) do
     %{filter: filter, pagination: pagination} = socket.assigns
     overrides = maybe_reset_pagination(overrides)
@@ -89,11 +87,10 @@ defmodule AxigbeWeb.LiveHome do
 
   defp assign_products(socket) do
      params = merge_and_sanitize_params(socket)
-     IO.inspect(params)
-     %{name: name, budget: budget} = params
+
 
      %Ash.Page.Keyset{results: products, count: total_count} =
-        Market.search_products_with_keyset!(name,  budget, page: [limit: 2, count: true])
+        Market.search_products(params)
     socket
     |> assign(:products, products)
     |> assign_total_count(total_count)
