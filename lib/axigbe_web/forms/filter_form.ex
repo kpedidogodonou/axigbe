@@ -3,13 +3,13 @@ defmodule AxigbeWeb.Forms.FilterForm do
 
 
   @fields %{
-    # budget: AshMoney.Types.Money,
+    budget: AshMoney.Types.Money,
     name: :string,
     area: :string,
   }
 
   @default_values %{
-    # budget: nil,
+    budget: nil,
     name: nil,
     area: nil
   }
@@ -20,10 +20,12 @@ defmodule AxigbeWeb.Forms.FilterForm do
   end
 
   def parse(params) do
+    IO.inspect(    {@default_values, @fields}    )
+
     {@default_values, @fields}
     |> cast(params, Map.keys(@fields))
     # |> validate_number(:budget, greater_than_or_equal_to: 0)
-    |> apply_action(:insert)
+    # |> apply_action(:insert)
   end
 
   def change_values(values \\ @default_values) do
