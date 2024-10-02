@@ -25,7 +25,7 @@
             <% else %>
               <%= for product <- @products do %>
                 <tr data-test-id={product.id}>
-                  <td><%= Float.to_string(product.price) %></td>
+                  <td><%= product.price %></td>
                   <td><%= product.name %></td>
                 </tr>
               <% end %>

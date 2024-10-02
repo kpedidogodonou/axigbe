@@ -14,8 +14,8 @@ defmodule AxigbeWeb.Endpoint do
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options],  check_origin: [
       "https://axigbe.bj",
-      "https//www.axigbe.bj",
-      "https//protype.axigbe.bj"
+      "https://www.axigbe.bj",
+      "https://protype.axigbe.bj"
 
     ]
   ],

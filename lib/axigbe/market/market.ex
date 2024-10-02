@@ -82,6 +82,6 @@ defmodule Axigbe.Market do
 
 
   def search_products(params) do
-    Axigbe.Market.search_products_with_keyset!(Map.get(params, :name),  Map.get(params, :budget), Map.get(params, :area), page: [limit: 2, count: true])
+    Axigbe.Market.search_products_with_keyset!(Map.get(params, :name),  Money.new("EUR", 5000), Map.get(params, :area), page: [limit: 2, count: true])
   end
 end

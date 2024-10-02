@@ -48,7 +48,7 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "axigbe.unemainverte.bio"
+  host = System.get_env("PHX_HOST")  
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :axigbe, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
@@ -164,4 +164,3 @@ end
 
 # # Ecto: Geo.PostGIS types
 # config :axigbe, Axigbe.Repo, types: Axigbe.PostgresTypes
- 

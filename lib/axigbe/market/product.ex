@@ -19,7 +19,7 @@ actions do
 
   read :keyset do
     argument :name, :string
-    argument :budget, :float
+    argument :budget, :money
     argument :area, :string
     prepare build(load: [:category, :business, :reviews], sort: :name)
 
